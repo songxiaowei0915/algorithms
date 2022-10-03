@@ -10,32 +10,25 @@ func merge<T: Comparable>(leftArr: Array<T> , rightArr: Array<T>, byCriteria: Cr
     
     while (left.count > 0 && right.count > 0) {
         if byCriteria(left[0], right[0]) {
-            result.append(left.removeFirst());
+            result.append(left.removeFirst())
         } else {
-            result.append(right.removeFirst());
+            result.append(right.removeFirst())
         }
     }
-
-    while left.count > 0 {
-        result.append(left.removeFirst());
-    }
-
-    while right.count > 0 {
-        result.append(right.removeFirst());
-    }
+    
+    result.append(contentsOf: left)
+    result.append(contentsOf: right)
 
     return result;
 }
 
-func mergeSort<T: Comparable>(_ coll: Array<T>, byCriteria: Criteria<T> = { $0 > $1 }) ->Array<T>  {
-    
-    
-    let len = coll.count;
-    if(len < 2) {
-        return coll;
+func mergeSort<T: Comparable>(_ coll: Array<T>, byCriteria: Criteria<T> = { $0 <= $1 }) ->Array<T>  {
+    guard coll.count > 1 else {
+        return coll
     }
+    let len = coll.count;
     let arr = coll
-    let middle = Int(floor(Double(len / 2)))
+    let middle = Int(len / 2)
     let left = Array(arr[0 ..< middle])
     let right = Array(arr[middle ..< coll.count])
     
@@ -46,5 +39,4 @@ func mergeSort<T: Comparable>(_ coll: Array<T>, byCriteria: Criteria<T> = { $0 >
 let a = [9,4,6,3,434,65,493,2,4]
 let b = mergeSort(a)
 print(b)
-let c = mergeSort(a, byCriteria:  < )
-print(c)
+
